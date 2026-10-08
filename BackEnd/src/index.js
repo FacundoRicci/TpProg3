@@ -3,6 +3,11 @@ import { PORT } from "./config.js";
 import { sequelize } from "./db.js";
 import { Cuenta } from "./models/Cuenta.js";
 import { Cliente } from "./models/Cliente.js";
+import { Turno } from "./models/Turno.js";
+import { Profesional } from "./models/Profesional.js";
+import { Servicio } from "./models/Servicio.js";
+import { ProfesionalServicio } from "./models/ProfesionalServicio.js";
+import { DisponibilidadProfesional } from "./models/DisponibilidadProfesional.js";
 import "./models/associations.js";
 
 const app = express();

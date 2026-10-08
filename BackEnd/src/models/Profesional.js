@@ -1,8 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-// id int, email string, password string, rol enum(cliente, profesional, administrador)
-export const Cliente = sequelize.define("Cliente", {
+export const Profesional = sequelize.define("Profesional", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -16,10 +15,9 @@ export const Cliente = sequelize.define("Cliente", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  dni: {
+  telefono: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
   cuenta_id: {
     type: DataTypes.INTEGER,
