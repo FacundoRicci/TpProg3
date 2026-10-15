@@ -1,9 +1,9 @@
-function MisTareas() {
+function MisTurnos() {
     return (
         <>
-            MisTareas
+            MisTurnos
         </>
     )
 }
 
-export default MisTareas;
+export default MisTurnos;
