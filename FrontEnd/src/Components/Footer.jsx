@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 
 const Footer = () => {
@@ -12,7 +11,7 @@ const Footer = () => {
             <small className="text">Desarrollado para la materia de Programacion III</small>
           </Col>
 
-          {/* Enlaces Rápidos */}
+          {/* Enlaces rapidos */}
           <Col md={4}>
             <Nav className="justify-content-center">
               <Nav.Link href="#inicio" className="text-light px-2 fs-5">Inicio</Nav.Link>
@@ -22,7 +21,7 @@ const Footer = () => {
             </Nav>
           </Col>
 
-          {/* Redes Sociales o Información de Contacto */}
+          {/* Redes sociales / información de contacto */}
           <Col md={4} className="text-center text-md-end">
             <div className="mb-1">
               <a href="#github" className="text-light me-3 text-decoration-none">GitHub</a>

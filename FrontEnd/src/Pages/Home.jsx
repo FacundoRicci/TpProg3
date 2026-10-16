@@ -1,13 +1,12 @@
 import CardTratamientos from '../Components/CardTratamientos';
-import Footer from '../Components/Footer';
+import Banner from '../Components/Banner';
 
 
 function Home() {
     return (
         <>
-            Home
+        <Banner />
         <CardTratamientos />
-        <Footer />
         </>
     )
 }
