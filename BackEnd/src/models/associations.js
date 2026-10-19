@@ -48,13 +48,13 @@ Cuenta.hasOne(Profesional, {
 
 Profesional.belongsToMany(Servicio, {
   through: ProfesionalServicio,
-  foreignKey: "servicio_id",
+  foreignKey: "profesional_id",
   otherKey: "servicio_id",
 });
 
 Servicio.belongsToMany(Profesional, {
   through: ProfesionalServicio,
-  foreignKey: "profesional_id",
+  foreignKey: "servicio_id",
   otherKey: "profesional_id",
 });
 

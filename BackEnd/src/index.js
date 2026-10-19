@@ -8,12 +8,15 @@ import { Profesional } from "./models/Profesional.js";
 import { Servicio } from "./models/Servicio.js";
 import { ProfesionalServicio } from "./models/ProfesionalServicio.js";
 import { DisponibilidadProfesional } from "./models/DisponibilidadProfesional.js";
+import { servicioRouter } from "./routes/servicio.routes.js";
 import "./models/associations.js";
 
 const app = express();
 
 try {
   app.use(express.json());
+
+  app.use(servicioRouter);
 
   await sequelize.sync();
 
