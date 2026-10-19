@@ -20,8 +20,4 @@ export const Servicio = sequelize.define("Servicio", {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
-  estado: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
 });
