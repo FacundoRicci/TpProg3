@@ -4,6 +4,7 @@ import Footer from "./Components/Footer.jsx";
 import Home from "./Pages/Home.jsx";
 import Login from "./Pages/Login.jsx";
 import MisTurnos from "./Pages/MisTurnos.jsx";
+import NotFound from "./Pages/NotFound.jsx";
 import "bootstrap/dist/css/bootstrap.min.css"; // CSS global de bootstrap
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/mis-turnos" element={<MisTurnos />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>
