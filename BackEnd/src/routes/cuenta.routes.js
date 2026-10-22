@@ -1,6 +1,14 @@
 import { Router } from "express";
-import { registrarClienteController } from "../controller/cuenta.controller.js";
+import {
+  registrarClienteController,
+  registrarProfesionalController,
+} from "../controller/cuenta.controller.js";
 
 export const cuentaRouter = Router();
 
-cuentaRouter.post("/cuentas/registro", registrarClienteController);
+cuentaRouter.post("/cuentas/registroCliente", registrarClienteController);
+
+cuentaRouter.post(
+  "/cuentas/registroProfesional",
+  registrarProfesionalController,
+);
