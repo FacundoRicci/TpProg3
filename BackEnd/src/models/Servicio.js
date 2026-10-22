@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import Sequelize from "sequelize";
 import { sequelize } from "../db.js";
 
 export const Servicio = sequelize.define("Servicio", {
@@ -18,10 +17,6 @@ export const Servicio = sequelize.define("Servicio", {
   },
   precio: {
     type: DataTypes.FLOAT,
-    allowNull: false,
-  },
-  estado: {
-    type: DataTypes.BOOLEAN,
     allowNull: false,
   },
 });

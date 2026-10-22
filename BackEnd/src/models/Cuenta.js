@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
-import { Cliente } from "./Cliente.js";
 
 // id int, email string, password string, rol enum(cliente, profesional, administrador)
 export const Cuenta = sequelize.define("Cuenta", {

@@ -1,4 +1,12 @@
-import { getServicios, createServicio } from "../services/servicio.service.js";
+import {
+  getServicios,
+  createServicio,
+  getServicioById,
+  updateServicio,
+  deleteServicio,
+} from "../services/servicio.service.js";
+
+import { recursoInexistente } from "../utils/respuestas.js";
 
 export const obtenerServicios = async (req, res) => {
   const servicios = await getServicios();
@@ -10,4 +18,36 @@ export const crearServicio = async (req, res) => {
   const servicio = await createServicio(req.body);
 
   res.status(201).json(servicio);
+};
+
+export const obtenerServicioPorId = async (req, res) => {
+  const servicio = await getServicioById(req.params.id);
+
+  if (!servicio) {
+    recursoInexistente(res, "Servicio");
+  }
+
+  res.json(servicio);
+};
+
+export const actualizarServicio = async (req, res) => {
+  const servicio = await updateServicio(req.params.id, req.body);
+
+  if (!servicio) {
+    recursoInexistente(res, "Servicio");
+  }
+
+  res.json(servicio);
+};
+
+export const eliminarServicio = async (req, res) => {
+  const servicio = await deleteServicio(req.params.id);
+
+  if (!servicio) {
+    recursoInexistente(res, "Servicio");
+  }
+
+  res.json({
+    mensaje: "Servicio eliminado correctamente",
+  });
 };
