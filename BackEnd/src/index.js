@@ -9,6 +9,9 @@ import { Servicio } from "./models/Servicio.js";
 import { ProfesionalServicio } from "./models/ProfesionalServicio.js";
 import { DisponibilidadProfesional } from "./models/DisponibilidadProfesional.js";
 import { servicioRouter } from "./routes/servicio.routes.js";
+import { clienteRouter } from "./routes/cliente.routes.js";
+import { cuentaRouter } from "./routes/cuenta.routes.js";
+
 import "./models/associations.js";
 
 const app = express();
@@ -16,6 +19,8 @@ const app = express();
 try {
   app.use(express.json());
 
+  app.use(cuentaRouter);
+  app.use(clienteRouter);
   app.use(servicioRouter);
 
   await sequelize.sync();

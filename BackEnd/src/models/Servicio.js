@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import Sequelize from "sequelize";
 import { sequelize } from "../db.js";
 
 export const Servicio = sequelize.define("Servicio", {
