@@ -88,3 +88,23 @@ export const registrarProfesional = async (datos) => {
     };
   });
 };
+
+export const getCuentas = async () => {
+  return await Cuenta.findAll();
+};
+
+export const getCuentaById = async (id) => {
+  return await Cuenta.findByPk(id);
+};
+
+export const deleteCuenta = async (id) => {
+  const cuenta = await Cuenta.findByPk(id);
+
+  if (!cuenta) {
+    return null;
+  }
+
+  await cuenta.destroy();
+
+  return cuenta;
+};

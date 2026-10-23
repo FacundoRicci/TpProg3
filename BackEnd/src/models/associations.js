@@ -8,10 +8,12 @@ import { DisponibilidadProfesional } from "./DisponibilidadProfesional.js";
 
 Cliente.belongsTo(Cuenta, {
   foreignKey: "cuenta_id",
+  onDelete: "CASCADE",
 });
 
 Cuenta.hasOne(Cliente, {
   foreignKey: "cuenta_id",
+  onDelete: "CASCADE",
 });
 
 Turno.belongsTo(Cliente, {
@@ -40,10 +42,12 @@ Cliente.hasMany(Turno, {
 
 Profesional.belongsTo(Cuenta, {
   foreignKey: "cuenta_id",
+  onDelete: "CASCADE",
 });
 
 Cuenta.hasOne(Profesional, {
   foreignKey: "cuenta_id",
+  onDelete: "CASCADE",
 });
 
 Profesional.belongsToMany(Servicio, {
