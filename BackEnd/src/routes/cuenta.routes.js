@@ -1,5 +1,8 @@
 import { Router } from "express";
 import {
+  eliminarCuenta,
+  obtenerCuenta,
+  obtenerCuentaPorId,
   registrarClienteController,
   registrarProfesionalController,
 } from "../controller/cuenta.controller.js";
@@ -12,3 +15,7 @@ cuentaRouter.post(
   "/cuentas/registroProfesional",
   registrarProfesionalController,
 );
+
+cuentaRouter.get("/cuentas", obtenerCuenta);
+cuentaRouter.get("/cuentas/:id", obtenerCuentaPorId);
+cuentaRouter.delete("/cuentas/:id", eliminarCuenta);
