@@ -34,6 +34,7 @@ function Navbar() {
             data-bs-theme="dark"
             expanded={abierto}
             onToggle={setAbierto}
+            id="inicio"
         >
             <Container fluid>
                 <BsNavbar.Brand role="button" onClick={() => irA("/")}>
