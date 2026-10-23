@@ -1,6 +1,21 @@
 import { Router } from "express";
-import { registrarClienteController } from "../controller/cuenta.controller.js";
+import {
+  eliminarCuenta,
+  obtenerCuenta,
+  obtenerCuentaPorId,
+  registrarClienteController,
+  registrarProfesionalController,
+} from "../controller/cuenta.controller.js";
 
 export const cuentaRouter = Router();
 
-cuentaRouter.post("/cuentas/registro", registrarClienteController);
+cuentaRouter.post("/cuentas/registroCliente", registrarClienteController);
+
+cuentaRouter.post(
+  "/cuentas/registroProfesional",
+  registrarProfesionalController,
+);
+
+cuentaRouter.get("/cuentas", obtenerCuenta);
+cuentaRouter.get("/cuentas/:id", obtenerCuentaPorId);
+cuentaRouter.delete("/cuentas/:id", eliminarCuenta);
