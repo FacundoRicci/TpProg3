@@ -47,6 +47,68 @@ export const registrarCliente = async (datos) => {
   });
 };
 
+export const registrarProfesional = async (datos) => {
+  const { nombre, apellido, telefono, email, password } = datos;
+
+  if (!nombre || !apellido || !telefono || !email || !password) {
+    throw new Error("Todos los campos son obligatorios");
+  }
+
+  return await sequelize.transaction(async (transaction) => {
+    const saltRounds = 10;
+
+    const salt = await bcrypt.genSalt(saltRounds);
+
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const cuenta = await Cuenta.create(
+      {
+        email,
+        password: passwordHash,
+        rol: "PROFESIONAL",
+      },
+      { transaction },
+    );
+
+    const profesional = await Profesional.create(
+      {
+        nombre,
+        apellido,
+        telefono,
+        cuenta_id: cuenta.id,
+      },
+      { transaction },
+    );
+
+    return {
+      id: cuenta.id,
+      email: cuenta.email,
+      rol: cuenta.rol,
+      profesional,
+    };
+  });
+};
+
+export const getCuentas = async () => {
+  return await Cuenta.findAll();
+};
+
+export const getCuentaById = async (id) => {
+  return await Cuenta.findByPk(id);
+};
+
+export const deleteCuenta = async (id) => {
+  const cuenta = await Cuenta.findByPk(id);
+
+  if (!cuenta) {
+    return null;
+  }
+
+  await cuenta.destroy();
+
+  return cuenta;
+};
+
 // Devuelve null si el email no existe o la contraseña no coincide
 export const loginCuenta = async (datos) => {
   const { email, password } = datos;

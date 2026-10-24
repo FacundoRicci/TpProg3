@@ -35,7 +35,7 @@ export async function login(email, password) {
 // Crea la cuenta y después inicia sesión automáticamente
 export async function registrar(datos) {
     const email = datos.email.trim().toLowerCase();
-    await enviar("/cuentas/registro", { ...datos, email });
+    await enviar("/cuentas/registroCliente", { ...datos, email });
     return login(email, datos.password);
 }
 

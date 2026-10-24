@@ -12,6 +12,7 @@ import { DisponibilidadProfesional } from "./models/DisponibilidadProfesional.js
 import { servicioRouter } from "./routes/servicio.routes.js";
 import { clienteRouter } from "./routes/cliente.routes.js";
 import { cuentaRouter } from "./routes/cuenta.routes.js";
+import { profesionalRouter } from "./routes/profesional.routes.js";
 
 import "./models/associations.js";
 
@@ -25,6 +26,7 @@ try {
   app.use(cuentaRouter);
   app.use(clienteRouter);
   app.use(servicioRouter);
+  app.use(profesionalRouter);
 
   await sequelize.sync();
 
