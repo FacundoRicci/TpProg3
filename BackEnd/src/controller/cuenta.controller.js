@@ -1,4 +1,4 @@
-import { registrarCliente } from "../services/cuenta.service.js";
+import { registrarCliente, loginCuenta } from "../services/cuenta.service.js";
 
 export const registrarClienteController = async (req, res) => {
   try {
@@ -22,6 +22,32 @@ export const registrarClienteController = async (req, res) => {
 
     return res.status(500).json({
       mensaje: "Error al registrar el cliente",
+    });
+  }
+};
+
+export const loginController = async (req, res) => {
+  try {
+    const usuario = await loginCuenta(req.body);
+
+    if (!usuario) {
+      return res.status(401).json({
+        mensaje: "Email o contraseña incorrectos",
+      });
+    }
+
+    return res.json(usuario);
+  } catch (error) {
+    if (error.message === "Todos los campos son obligatorios") {
+      return res.status(400).json({
+        mensaje: error.message,
+      });
+    }
+
+    console.error(error);
+
+    return res.status(500).json({
+      mensaje: "Error al iniciar sesión",
     });
   }
 };

@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { PORT } from "./config.js";
 import { sequelize } from "./db.js";
 import { Cuenta } from "./models/Cuenta.js";
@@ -17,6 +18,8 @@ import "./models/associations.js";
 const app = express();
 
 try {
+  // Permite que el FrontEnd (otro puerto) haga pedidos a esta API
+  app.use(cors());
   app.use(express.json());
 
   app.use(cuentaRouter);

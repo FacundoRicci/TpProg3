@@ -1,6 +1,7 @@
 import { sequelize } from "../db.js";
 import { Cuenta } from "../models/Cuenta.js";
 import { Cliente } from "../models/Cliente.js";
+import { Profesional } from "../models/Profesional.js";
 import bcrypt from "bcrypt";
 
 export const registrarCliente = async (datos) => {
@@ -44,4 +45,37 @@ export const registrarCliente = async (datos) => {
       cliente,
     };
   });
+};
+
+// Devuelve null si el email no existe o la contraseña no coincide
+export const loginCuenta = async (datos) => {
+  const { email, password } = datos;
+
+  if (!email || !password) {
+    throw new Error("Todos los campos son obligatorios");
+  }
+
+  const cuenta = await Cuenta.findOne({
+    where: { email },
+    include: [Cliente, Profesional],
+  });
+
+  if (!cuenta) {
+    return null;
+  }
+
+  const passwordValida = await bcrypt.compare(password, cuenta.password);
+
+  if (!passwordValida) {
+    return null;
+  }
+
+  const persona = cuenta.Cliente ?? cuenta.Profesional;
+
+  return {
+    id: cuenta.id,
+    email: cuenta.email,
+    rol: cuenta.rol,
+    nombre: persona ? persona.nombre : cuenta.email,
+  };
 };
