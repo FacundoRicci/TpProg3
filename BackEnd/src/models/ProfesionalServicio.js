@@ -6,7 +6,7 @@ export const ProfesionalServicio = sequelize.define("ProfesionalServicio", {
     type: DataTypes.INTEGER,
     primaryKey: true,
   },
-  servicio: {
+  servicio_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
   },

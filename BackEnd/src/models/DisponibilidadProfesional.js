@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
 export const DisponibilidadProfesional = sequelize.define(
-  "DisponiblidadProfesional",
+  "DisponibilidadProfesional",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,7 +10,14 @@ export const DisponibilidadProfesional = sequelize.define(
       autoIncrement: true,
     },
     dia_semana: {
-      type: DataTypes.ENUM("LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES"),
+      type: DataTypes.ENUM(
+        "LUNES",
+        "MARTES",
+        "MIERCOLES",
+        "JUEVES",
+        "VIERNES",
+        "SABADO",
+      ),
       allowNull: false,
     },
     hora_desde: {

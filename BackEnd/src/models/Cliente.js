@@ -21,6 +21,10 @@ export const Cliente = sequelize.define("Cliente", {
     allowNull: false,
     unique: true,
   },
+  telefono: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   cuenta_id: {
     type: DataTypes.INTEGER,
     allowNull: false,

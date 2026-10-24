@@ -8,7 +8,7 @@ export const Turno = sequelize.define("Turno", {
     autoIncrement: true,
   },
   fecha: {
-    type: DataTypes.DATE,
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
   hora: {
@@ -17,6 +17,8 @@ export const Turno = sequelize.define("Turno", {
   },
   estado: {
     type: DataTypes.ENUM("PENDIENTE", "CANCELADO", "FINALIZADO"),
+    allowNull: false,
+    defaultValue: "PENDIENTE",
   },
   cliente_id: {
     type: DataTypes.INTEGER,
