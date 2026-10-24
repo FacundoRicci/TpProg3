@@ -1,6 +1,5 @@
 import { Router } from "express";
 import {
-  eliminarCuenta,
   loginController,
   obtenerCuenta,
   obtenerCuentaPorId,
@@ -21,4 +20,3 @@ cuentaRouter.post("/cuentas/login", loginController);
 
 cuentaRouter.get("/cuentas", obtenerCuenta);
 cuentaRouter.get("/cuentas/:id", obtenerCuentaPorId);
-cuentaRouter.delete("/cuentas/:id", eliminarCuenta);

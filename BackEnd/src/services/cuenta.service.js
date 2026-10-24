@@ -90,23 +90,15 @@ export const registrarProfesional = async (datos) => {
 };
 
 export const getCuentas = async () => {
-  return await Cuenta.findAll();
+  return await Cuenta.findAll({
+    attributes: { exclude: ["password"] },
+  });
 };
 
 export const getCuentaById = async (id) => {
-  return await Cuenta.findByPk(id);
-};
-
-export const deleteCuenta = async (id) => {
-  const cuenta = await Cuenta.findByPk(id);
-
-  if (!cuenta) {
-    return null;
-  }
-
-  await cuenta.destroy();
-
-  return cuenta;
+  return await Cuenta.findByPk(id, {
+    attributes: { exclude: ["password"] },
+  });
 };
 
 // Devuelve null si el email no existe o la contraseña no coincide

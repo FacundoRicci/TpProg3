@@ -1,5 +1,4 @@
 import {
-  deleteCuenta,
   getCuentaById,
   getCuentas,
   loginCuenta,
@@ -100,16 +99,4 @@ export const obtenerCuentaPorId = async (req, res) => {
   }
 
   res.json(cuenta);
-};
-
-export const eliminarCuenta = async (req, res) => {
-  const cuenta = await deleteCuenta(req.params.id);
-
-  if (!cuenta) {
-    return recursoInexistente(res, "Cuenta");
-  }
-
-  res.json({
-    mensaje: "Cuenta eliminada correctamente",
-  });
 };
