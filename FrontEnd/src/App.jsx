@@ -5,7 +5,6 @@ import Home from "./Pages/Home.jsx";
 import Login from "./Pages/Login.jsx";
 import MisTurnos from "./Pages/MisTurnos.jsx";
 import NotFound from "./Pages/NotFound.jsx";
-import "bootstrap/dist/css/bootstrap.min.css"; // CSS global de bootstrap
 
 function App() {
   return (

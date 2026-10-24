@@ -1,15 +1,15 @@
-const API_URL = "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 const CLAVE = "usuario";
 
-// Hace un POST a la API y devuelve el JSON, o lanza un Error con el mensaje del BackEnd
-async function enviar(ruta, datos) {
+// Hace un pedido a la API y devuelve el JSON, o lanza un Error con el mensaje del BackEnd
+export async function pedir(ruta, { method = "GET", datos } = {}) {
     let respuesta;
     try {
         respuesta = await fetch(`${API_URL}${ruta}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(datos),
+            method,
+            headers: datos ? { "Content-Type": "application/json" } : undefined,
+            body: datos ? JSON.stringify(datos) : undefined,
         });
     } catch {
         throw new Error("No se pudo conectar con el servidor.");
@@ -23,9 +23,12 @@ async function enviar(ruta, datos) {
 }
 
 export async function login(email, password) {
-    const usuario = await enviar("/cuentas/login", {
-        email: email.trim().toLowerCase(),
-        password,
+    const usuario = await pedir("/cuentas/login", {
+        method: "POST",
+        datos: {
+            email: email.trim().toLowerCase(),
+            password,
+        },
     });
 
     localStorage.setItem(CLAVE, JSON.stringify(usuario));
@@ -35,7 +38,7 @@ export async function login(email, password) {
 // Crea la cuenta y después inicia sesión automáticamente
 export async function registrar(datos) {
     const email = datos.email.trim().toLowerCase();
-    await enviar("/cuentas/registroCliente", { ...datos, email });
+    await pedir("/cuentas/registroCliente", { method: "POST", datos: { ...datos, email } });
     return login(email, datos.password);
 }
 

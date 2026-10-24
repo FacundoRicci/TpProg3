@@ -1,33 +1,42 @@
+import { useEffect, useState } from "react";
 import CardServicio from "./CardServicio";
+import { pedir } from "../auth.js";
 
 // Bootstrap
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
 
 
 const GridCardServicio = () => {
-    const servicios_de_prueba = [  // Una vez hecho los fetch de la bbdd, borrar esto
-        { id: 1, nombre: "Limpieza Facial Profunda", descripcion: "Higienización completa.", precio: 18000 },
-        { id: 2, nombre: "Peeling Químico", descripcion: "Renovación celular e hidratación.", precio: 22000 },
-        { id: 3, nombre: "Dermapen", descripcion: "Estimulación de colágeno.", precio: 28000 },
-        { id: 4, nombre: "Drenaje Linfático", descripcion: "Masaje desintoxicante facial.", precio: 15000 },
-        { id: 5, nombre: "Perfilado de Cejas", descripcion: "Diseño y depilación de cejas.", precio: 12000 },
-        { id: 6, nombre: "Lifting de Pestañas", descripcion: "Curvado natural con tinte.", precio: 14000 },
-        ];
+    const [servicios, setServicios] = useState([]);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        pedir("/servicios")
+            .then(setServicios)
+            .catch((err) => setError(err.message));
+    }, []);
 
     return (
         <>
         <h2 className="text-center my-5 display-4 fw-bold">Conoce alguno de nuestros servicios</h2>
-        
+
         <Container className="my-5"> {/* Margen eje Y */}
+            {error && <Alert variant="warning">{error}</Alert>}
+
+            {!error && servicios.length === 0 && (
+                <p className="text-center text-muted">Todavía no hay servicios cargados.</p>
+            )}
+
             <Row className="g-4"> {/* g-4 = Gap 4 */}
-                {servicios_de_prueba.map((servicio) => (
+                {servicios.map((servicio) => (
                     <Col key={servicio.id} xs={12} md={4}> {/* xs = ocupa las 12 columnas, pantallas chicas. md =  pantallas medianas en adelante, ocupa 4 col*/}
                         <CardServicio
-                            key={servicio.id}
                             nombre={servicio.nombre}
                             descripcion={servicio.descripcion}
+                            precio={servicio.precio}
                         />
                     </Col>
 

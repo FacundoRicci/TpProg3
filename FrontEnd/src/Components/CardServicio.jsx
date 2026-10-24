@@ -1,17 +1,27 @@
+import { useNavigate } from 'react-router';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 
-function CardServicio({ nombre, descripcion }) {
+function CardServicio({ nombre, descripcion, precio }) {
+  const navigate = useNavigate();
+
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card className="h-100">
       <Card.Img variant="top" src={'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=80'} />
-      <Card.Body>
+      <Card.Body className="d-flex flex-column">
         <Card.Title>{nombre}</Card.Title>
-        <Card.Text>
+        <Card.Text className="flex-grow-1">
           {descripcion}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        {precio != null && (
+          <Card.Text className="fw-bold mb-3">
+            ${precio.toLocaleString('es-AR')}
+          </Card.Text>
+        )}
+        <Button variant="dark" onClick={() => navigate('/mis-turnos')}>
+          Reservar turno
+        </Button>
       </Card.Body>
     </Card>
   );

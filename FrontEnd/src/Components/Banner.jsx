@@ -1,6 +1,9 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 const Banner = () => {
+  const navigate = useNavigate();
+
   return (
     <div
       className="position-relative text-white py-5"
@@ -58,6 +61,7 @@ const Banner = () => {
               size="lg"
               className="fw-bold px-5 py-2 border-0"
               style={{ backgroundColor: '#7DA654', color: '#fff' }}
+              onClick={() => navigate('/mis-turnos')}
             >
               Reservar turno
             </Button>
