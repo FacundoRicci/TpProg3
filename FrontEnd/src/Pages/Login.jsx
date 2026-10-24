@@ -195,7 +195,7 @@ function Login() {
                                     style={{ color: "#7DA654" }}
                                     onClick={cambiarModo}
                                 >
-                                    {esRegistro ? "Iniciá sesión" : "Registrate"}
+                                    {esRegistro ? "Iniciar sesión" : "Registrate"}
                                 </Button>
                             </p>
                         </Card.Body>
