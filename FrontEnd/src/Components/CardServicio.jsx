@@ -1,15 +1,15 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import miImagen from './images.jpg';
 
-function CardTratamientos() {
+
+function CardServicio({ nombre, descripcion }) {
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={miImagen} />
+      <Card.Img variant="top" src={'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1600&q=80'} />
       <Card.Body>
-        <Card.Title>Tratamiento</Card.Title>
+        <Card.Title>{nombre}</Card.Title>
         <Card.Text>
-          Descripcion del tratamiento
+          {descripcion}
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
@@ -17,4 +17,4 @@ function CardTratamientos() {
   );
 }
 
-export default CardTratamientos;
+export default CardServicio;

@@ -15,10 +15,10 @@ const Footer = () => {
           {/* Enlaces rapidos */}
           <Col md={4}>
             <Nav className="justify-content-center">
-              <Nav.Link href="" className="text-light px-2 fs-5">Inicio</Nav.Link>
+              <Nav.Link href="#inicio" className="text-light px-2 fs-5">Inicio</Nav.Link>
               <Nav.Link href="" className="text-light px-2 fs-5">Nosotros</Nav.Link>
               <Nav.Link href="" className="text-light px-2 fs-5">Servicios</Nav.Link>
-              <Nav.Link href="" className="text-light px-2 fs-5">Contacto</Nav.Link>
+              <Nav.Link href="#contacto" className="text-light px-2 fs-5">Contacto</Nav.Link>
             </Nav>
           </Col>
 
