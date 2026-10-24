@@ -17,7 +17,7 @@ export const obtenerProfesionalPorId = async (req, res) => {
   const profesionales = await getProfesionalById(req.params.id);
 
   if (!profesionales) {
-    recursoInexistente(res, "Profesional");
+    return recursoInexistente(res, "Profesional");
   }
 
   res.json(profesionales);
@@ -27,17 +27,17 @@ export const actualizarProfesional = async (req, res) => {
   const profesional = await updateProfesional(req.params.id, req.body);
 
   if (!profesional) {
-    recursoInexistente(res, "Profesional");
+    return recursoInexistente(res, "Profesional");
   }
 
   res.json(profesional);
 };
 
 export const eliminarProfesional = async (req, res) => {
-  const profesional = deleteProfesional(req.params.id);
+  const profesional = await deleteProfesional(req.params.id);
 
   if (!profesional) {
-    recursoInexistente(res, "Profesional");
+    return recursoInexistente(res, "Profesional");
   }
 
   res.json({

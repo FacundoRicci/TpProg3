@@ -17,7 +17,7 @@ export const obtenerClientePorId = async (req, res) => {
   const cliente = await getClienteById(req.params.id);
 
   if (!cliente) {
-    recursoInexistente(res, "Cliente");
+    return recursoInexistente(res, "Cliente");
   }
 
   res.json(cliente);
@@ -27,7 +27,7 @@ export const actualizarCliente = async (req, res) => {
   const cliente = await updateCliente(req.params.id, req.body);
 
   if (!cliente) {
-    recursoInexistente(res, "Cliente");
+    return recursoInexistente(res, "Cliente");
   }
 
   res.json(cliente);
@@ -37,7 +37,7 @@ export const eliminarCliente = async (req, res) => {
   const cliente = await deleteCliente(req.params.id);
 
   if (!cliente) {
-    recursoInexistente(res, "Cliente");
+    return recursoInexistente(res, "Cliente");
   }
 
   res.json({

@@ -24,7 +24,7 @@ export const obtenerServicioPorId = async (req, res) => {
   const servicio = await getServicioById(req.params.id);
 
   if (!servicio) {
-    recursoInexistente(res, "Servicio");
+    return recursoInexistente(res, "Servicio");
   }
 
   res.json(servicio);
@@ -34,7 +34,7 @@ export const actualizarServicio = async (req, res) => {
   const servicio = await updateServicio(req.params.id, req.body);
 
   if (!servicio) {
-    recursoInexistente(res, "Servicio");
+    return recursoInexistente(res, "Servicio");
   }
 
   res.json(servicio);
@@ -44,7 +44,7 @@ export const eliminarServicio = async (req, res) => {
   const servicio = await deleteServicio(req.params.id);
 
   if (!servicio) {
-    recursoInexistente(res, "Servicio");
+    return recursoInexistente(res, "Servicio");
   }
 
   res.json({

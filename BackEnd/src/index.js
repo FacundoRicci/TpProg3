@@ -28,6 +28,24 @@ try {
   app.use(servicioRouter);
   app.use(profesionalRouter);
 
+  // Ruta no encontrada
+  app.use((req, res) => {
+    res.status(404).json({ mensaje: "Ruta no encontrada" });
+  });
+
+  // Manejador de errores: siempre responde JSON así el front puede leer "mensaje"
+  app.use((error, req, res, next) => {
+    console.error(error);
+
+    if (res.headersSent) {
+      return next(error);
+    }
+
+    res.status(error.status || 500).json({
+      mensaje: error.message || "Error interno del servidor",
+    });
+  });
+
   await sequelize.sync();
 
   app.listen(PORT, () => {

@@ -96,7 +96,7 @@ export const obtenerCuentaPorId = async (req, res) => {
   const cuenta = await getCuentaById(req.params.id);
 
   if (!cuenta) {
-    recursoInexistente(res, "Cuenta");
+    return recursoInexistente(res, "Cuenta");
   }
 
   res.json(cuenta);
@@ -106,7 +106,7 @@ export const eliminarCuenta = async (req, res) => {
   const cuenta = await deleteCuenta(req.params.id);
 
   if (!cuenta) {
-    recursoInexistente(res, "Cuenta");
+    return recursoInexistente(res, "Cuenta");
   }
 
   res.json({
