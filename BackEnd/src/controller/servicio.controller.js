@@ -2,6 +2,7 @@ import {
   getServicios,
   createServicio,
   getServicioById,
+  getProfesionalesPorServicio,
   updateServicio,
   deleteServicio,
 } from "../services/servicio.service.js";
@@ -28,6 +29,16 @@ export const obtenerServicioPorId = async (req, res) => {
   }
 
   res.json(servicio);
+};
+
+export const obtenerProfesionalesPorServicio = async (req, res) => {
+  const servicio = await getProfesionalesPorServicio(req.params.id);
+
+  if (!servicio) {
+    return recursoInexistente(res, "Servicio");
+  }
+
+  res.json(servicio.Profesionals);
 };
 
 export const actualizarServicio = async (req, res) => {

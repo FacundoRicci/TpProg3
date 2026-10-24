@@ -13,6 +13,7 @@ import { servicioRouter } from "./routes/servicio.routes.js";
 import { clienteRouter } from "./routes/cliente.routes.js";
 import { cuentaRouter } from "./routes/cuenta.routes.js";
 import { profesionalRouter } from "./routes/profesional.routes.js";
+import { turnoRouter } from "./routes/turno.routes.js";
 
 import "./models/associations.js";
 
@@ -27,6 +28,7 @@ try {
   app.use(clienteRouter);
   app.use(servicioRouter);
   app.use(profesionalRouter);
+  app.use(turnoRouter);
 
   // Ruta no encontrada
   app.use((req, res) => {
@@ -35,14 +37,18 @@ try {
 
   // Manejador de errores: siempre responde JSON así el front puede leer "mensaje"
   app.use((error, req, res, next) => {
-    console.error(error);
-
     if (res.headersSent) {
       return next(error);
     }
 
-    res.status(error.status || 500).json({
-      mensaje: error.message || "Error interno del servidor",
+    const status = error.status || 500;
+
+    if (status >= 500) {
+      console.error(error);
+    }
+
+    res.status(status).json({
+      mensaje: status >= 500 ? "Error interno del servidor" : error.message,
     });
   });
 

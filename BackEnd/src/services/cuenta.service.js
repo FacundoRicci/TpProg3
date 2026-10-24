@@ -131,5 +131,7 @@ export const loginCuenta = async (datos) => {
     email: cuenta.email,
     rol: cuenta.rol,
     nombre: persona ? persona.nombre : cuenta.email,
+    cliente_id: cuenta.Cliente ? cuenta.Cliente.id : null,
+    profesional_id: cuenta.Profesional ? cuenta.Profesional.id : null,
   };
 };

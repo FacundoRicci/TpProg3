@@ -1,4 +1,5 @@
 import { Servicio } from "../models/Servicio.js";
+import { Profesional } from "../models/Profesional.js";
 
 export const getServicios = async () => {
   return await Servicio.findAll();
@@ -10,6 +11,19 @@ export const createServicio = async (datos) => {
 
 export const getServicioById = async (id) => {
   return await Servicio.findByPk(id);
+};
+
+// Profesionales que tienen asignado ese servicio
+export const getProfesionalesPorServicio = async (id) => {
+  return await Servicio.findByPk(id, {
+    include: [
+      {
+        model: Profesional,
+        attributes: ["id", "nombre", "apellido"],
+        through: { attributes: [] },
+      },
+    ],
+  });
 };
 
 export const updateServicio = async (id, datos) => {
