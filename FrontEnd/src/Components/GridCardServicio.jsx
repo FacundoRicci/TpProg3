@@ -21,7 +21,7 @@ const GridCardServicio = () => {
 
     return (
         <>
-        <h2 className="text-center my-5 display-4 fw-bold">Conoce alguno de nuestros servicios</h2>
+        <h2 id="servicios" className="text-center my-5 display-4 fw-bold">Conoce alguno de nuestros servicios</h2>
 
         <Container className="my-5"> {/* Margen eje Y */}
             {error && <Alert variant="warning">{error}</Alert>}

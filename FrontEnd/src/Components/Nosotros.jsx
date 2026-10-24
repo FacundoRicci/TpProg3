@@ -6,7 +6,7 @@ import Image from 'react-bootstrap/Image';
 
 const Nosotros= ()=>{
     return(
-        <Container className='my-5'>
+        <Container className='my-5' id='nosotros'>
             <Row className="g-5 align-items-center">
                 <Col xs={12} md={6}>
                     <div className='position-relative'> {/* <Image fluid= que se adapte y no supere el ancho de la columna */}
@@ -16,7 +16,7 @@ const Nosotros= ()=>{
                 <Col>
                     <h2>Estética profesional. Experiencia única.</h2>
                     <p>En Centro De Estetica combinamos formación profesional, aparatología avanzada y un enfoque cálido para que cada tratamiento sea también un momento para vos.</p>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo adipisci culpa sed minima sunt dicta placeat cupiditate similique, ullam, optio, modi aperiam odio! Non consectetur qui esse sint, ex eveniet.</p>
+                    <p>Reservá tu turno online en pocos pasos: elegí el servicio, la profesional y el horario que mejor te queden.</p>
                 </Col>
             </Row>
             
