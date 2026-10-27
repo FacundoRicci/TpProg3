@@ -4,6 +4,7 @@ import {
   loginCuenta,
   registrarCliente,
   registrarProfesional,
+  eliminarProfesional,
 } from "../services/cuenta.service.js";
 import { recursoInexistente } from "../utils/respuestas.js";
 
@@ -99,4 +100,16 @@ export const obtenerCuentaPorId = async (req, res) => {
   }
 
   res.json(cuenta);
+};
+
+export const eliminarProfesionalController = async (req, res) => {
+  const cuenta = await eliminarProfesional(req.params.id);
+
+  if (!cuenta) {
+    return recursoInexistente(res, "Cuenta");
+  }
+
+  return res.json({
+    mensaje: "Cuenta del profesional y sus datos asociados eliminados correctamente",
+  });
 };

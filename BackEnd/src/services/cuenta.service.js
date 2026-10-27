@@ -135,3 +135,21 @@ export const loginCuenta = async (datos) => {
     profesional_id: cuenta.Profesional ? cuenta.Profesional.id : null,
   };
 };
+
+export const eliminarProfesional = async (cuentaId) => {
+  const cuenta = await Cuenta.findByPk(cuentaId);
+
+  if (!cuenta) {
+    return null;
+  }
+
+  if (cuenta.rol !== "PROFESIONAL") {
+    const error = new Error("La cuenta no pertenece a un profesional");
+    error.status = 400;
+    throw error;
+  }
+
+  await cuenta.destroy();
+
+  return cuenta;
+};

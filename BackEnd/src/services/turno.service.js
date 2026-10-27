@@ -32,6 +32,25 @@ export const crearTurno = async (datos) => {
     throw errorDeNegocio("No se pueden reservar turnos en fechas pasadas");
   }
 
+  // VALIDACIONES reserva de turno lunes a viernes / reserva cada una hora en punto --------------------
+
+  // Aceptar solo de lunes a viernes
+  const diaDeLaSemana = new Date(`${fecha}T00:00:00Z`).getUTCDay();
+
+  if (diaDeLaSemana < 1 || diaDeLaSemana > 5) {
+    throw errorDeNegocio("Solo se pueden reservar turnos de lunes a viernes");
+  }
+
+  // Aceptar turnos cada una hora en punto, entre las 10:00 y las 19:00
+  const [horas, minutos, segundos = 0] = hora.split(":").map(Number);
+
+  if (horas < 10 || horas >= 20 || minutos !== 0 || segundos !== 0) {
+    throw errorDeNegocio(
+      "Los turnos deben ser de lunes a viernes, entre las 10:00 y las 19:00, en punto"
+    );
+  }
+  // --------------------------------------------------------------------------------------------------
+  
   const [cliente, profesional, servicio] = await Promise.all([
     Cliente.findByPk(cliente_id),
     Profesional.findByPk(profesional_id),

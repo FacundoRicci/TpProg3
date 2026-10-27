@@ -44,3 +44,5 @@ export const eliminarCliente = async (req, res) => {
     mensaje: "Cliente eliminado correctamente",
   });
 };
+
+
