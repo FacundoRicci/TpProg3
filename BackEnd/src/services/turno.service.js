@@ -107,6 +107,20 @@ export const getTurnosPorCliente = async (clienteId) => {
   });
 };
 
+export const getTurnosPorProfesional = async (profesionalId) => {
+  return await Turno.findAll({
+    where: { profesional_id: profesionalId },
+    include: [
+      { model: Cliente, attributes: ["id", "nombre", "apellido", "telefono"] },
+      { model: Servicio, attributes: ["id", "nombre", "precio"] },
+    ],
+    order: [
+      ["fecha", "ASC"],
+      ["hora", "ASC"],
+    ],
+  });
+};
+
 export const cancelarTurno = async (id) => {
   const turno = await Turno.findByPk(id);
 

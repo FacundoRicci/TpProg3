@@ -2,6 +2,7 @@ import {
   cancelarTurno,
   crearTurno,
   getTurnosPorCliente,
+  getTurnosPorProfesional,
 } from "../services/turno.service.js";
 import { recursoInexistente } from "../utils/respuestas.js";
 
@@ -13,6 +14,12 @@ export const crearTurnoController = async (req, res) => {
 
 export const obtenerTurnosPorCliente = async (req, res) => {
   const turnos = await getTurnosPorCliente(req.params.clienteId);
+
+  res.json(turnos);
+};
+
+export const obtenerTurnosPorProfesional = async (req, res) => {
+  const turnos = await getTurnosPorProfesional(req.params.profesionalId);
 
   res.json(turnos);
 };
