@@ -22,8 +22,8 @@ const Contacto = ()=> {
                     <hr className="my-3" />
 
                     <h4 className="h6 fw-bold mb-2">Horarios de Atención:</h4>
-                    <p className="mb-1">Lunes a Viernes: 09:00 - 20:00 hs</p>
-                    <p className="mb-0">Sábados: 09:00 - 14:00 hs</p>
+                    <p className="mb-1">Lunes a Viernes: 10:00 - 20:00 hs</p>
+                    <p className="mb-0">Sábados y Domingos cerrado.</p>
                 </Col>
 
                 {/* Columa del iFrame */}

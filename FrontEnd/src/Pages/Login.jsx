@@ -50,12 +50,13 @@ function Login() {
 
         setCargando(true);
         try {
+            let usuario;
             if (esRegistro) {
-                await registrar({ ...cliente, email, password });
+                usuario = await registrar({ ...cliente, email, password });
             } else {
-                await login(email, password);
+                usuario = await login(email, password);
             }
-            navigate("/mis-turnos");
+            navigate(usuario.rol === "PROFESIONAL" ? "/" : "/mis-turnos");
         } catch (err) {
             setError(err.message);
         } finally {
