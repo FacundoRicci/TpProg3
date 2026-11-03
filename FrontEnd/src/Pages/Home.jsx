@@ -3,11 +3,16 @@ import GridCardServicio from '../Components/GridCardServicio';
 import Contacto from '../Components/Contacto';
 import Nosotros from '../Components/Nosotros';
 import TurnosProfesional from '../Components/TurnosProfesional';
+import Admin from './Admin.jsx';
 import { getUsuario } from '../auth.js';
 
 
 function Home() {
     const usuario = getUsuario();
+
+    if (usuario?.rol === 'ADMINISTRADOR') {
+        return <Admin />;
+    }
 
     if (usuario?.rol === 'PROFESIONAL') {
         return <TurnosProfesional profesionalId={usuario.profesional_id} />;

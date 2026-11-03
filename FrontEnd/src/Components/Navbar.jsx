@@ -21,6 +21,9 @@ function Navbar() {
     // useLocation hace que el Navbar se vuelva a renderizar al navegar,
     // así que el usuario se actualiza después de login/logout
     const usuario = getUsuario();
+    const linksVisibles = usuario?.rol === "ADMINISTRADOR"
+        ? [...links, { path: "/administracion", label: "Administración", icon: "bi-gear" }]
+        : links;
 
     const cerrarSesion = () => {
         logout();
@@ -46,7 +49,7 @@ function Navbar() {
 
                 <BsNavbar.Collapse id="navbarNav">
                     <Nav className="me-auto" activeKey={location.pathname}>
-                        {links.map((link) => (
+                        {linksVisibles.map((link) => (
                             <Nav.Link
                                 key={link.path}
                                 eventKey={link.path}

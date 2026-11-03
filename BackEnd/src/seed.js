@@ -35,6 +35,11 @@ const cargar = async () => {
   const todosLosServicios = await Servicio.findAll();
   const password = await bcrypt.hash("123456", 10);
 
+  await Cuenta.findOrCreate({
+    where: { email: "admin@demo.com" },
+    defaults: { email: "admin@demo.com", password, rol: "ADMINISTRADOR" },
+  });
+
   for (const datos of profesionales) {
     const [cuenta] = await Cuenta.findOrCreate({
       where: { email: datos.email },
@@ -56,6 +61,7 @@ const cargar = async () => {
 
   console.log(`Servicios cargados: ${servicios.length}`);
   console.log(`Profesionales de ejemplo: ${profesionales.length} (password: 123456)`);
+  console.log("Administrador de prueba: admin@demo.com (password: 123456)");
   await sequelize.close();
 };
 

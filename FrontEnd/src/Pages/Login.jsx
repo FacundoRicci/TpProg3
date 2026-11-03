@@ -56,7 +56,11 @@ function Login() {
             } else {
                 usuario = await login(email, password);
             }
-            navigate(usuario.rol === "PROFESIONAL" ? "/" : "/mis-turnos");
+            navigate(
+                usuario.rol === "PROFESIONAL" || usuario.rol === "ADMINISTRADOR"
+                    ? "/"
+                    : "/mis-turnos",
+            );
         } catch (err) {
             setError(err.message);
         } finally {
