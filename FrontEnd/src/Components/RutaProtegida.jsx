@@ -1,8 +1,8 @@
 import { Navigate, Outlet, useLocation } from "react-router";
-import { getUsuario } from "../auth.js";
+import { useUsuario } from "../context/UsuarioContext.jsx";
 
 function RutaProtegida({ rol }) {
-  const usuario = getUsuario();
+  const { usuario } = useUsuario();
   const location = useLocation();
 
   if (!usuario) {

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Container, Row, Col, Card, Form, InputGroup, Button, Alert } from "react-bootstrap";
-import { login, registrar } from "../auth.js";
+import { useUsuario } from "../context/UsuarioContext.jsx";
 
 const clienteVacio = { nombre: "", apellido: "", dni: "", telefono: "" };
 
 function Login() {
     const navigate = useNavigate();
+    const { login, registrar } = useUsuario();
     const [modo, setModo] = useState("login");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

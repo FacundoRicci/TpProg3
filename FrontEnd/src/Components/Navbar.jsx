@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { Navbar as BsNavbar, Container, Nav, Button } from "react-bootstrap";
-import { getUsuario, logout } from "../auth.js";
+import { useUsuario } from "../context/UsuarioContext.jsx";
 
 const links = [
     { path: "/", label: "Home", icon: "bi-house" },
@@ -11,6 +11,7 @@ const links = [
 function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
+    const { usuario, logout } = useUsuario();
     const [abierto, setAbierto] = useState(false);
 
     const irA = (path) => {
@@ -18,9 +19,6 @@ function Navbar() {
         setAbierto(false);
     };
 
-    // useLocation hace que el Navbar se vuelva a renderizar al navegar,
-    // así que el usuario se actualiza después de login/logout
-    const usuario = getUsuario();
     const linksVisibles = usuario?.rol === "ADMINISTRADOR"
         ? [...links, { path: "/administracion", label: "Administración", icon: "bi-gear" }]
         : links;

@@ -4,11 +4,11 @@ import Contacto from '../Components/Contacto';
 import Nosotros from '../Components/Nosotros';
 import TurnosProfesional from '../Components/TurnosProfesional';
 import Admin from './Admin.jsx';
-import { getUsuario } from '../auth.js';
+import { useUsuario } from '../context/UsuarioContext.jsx';
 
 
 function Home() {
-    const usuario = getUsuario();
+    const { usuario } = useUsuario();
 
     if (usuario?.rol === 'ADMINISTRADOR') {
         return <Admin />;

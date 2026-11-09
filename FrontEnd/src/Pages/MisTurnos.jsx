@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
 import { Alert, Badge, Button, Card, Col, Form, Row, Table } from "react-bootstrap";
-import { getUsuario, pedir } from "../auth.js";
+import { pedir } from "../auth.js";
+import { useUsuario } from "../context/UsuarioContext.jsx";
 
 const formularioVacio = { servicio_id: "", profesional_id: "", fecha: "", hora: "" };
 
 function MisTurnos() {
-    const usuario = getUsuario();
+    const { usuario } = useUsuario();
     const clienteId = usuario?.cliente_id;
 
     const [servicios, setServicios] = useState([]);
