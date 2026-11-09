@@ -72,6 +72,12 @@ export const registrarProfesionalController = async (req, res) => {
       });
     }
 
+    if (error.status) {
+      return res.status(error.status).json({
+        mensaje: error.message,
+      });
+    }
+
     if (error.name === "SequelizeUniqueConstraintError") {
       return res.status(409).json({
         mensaje: "El email o DNI ya se encuentra registrado",

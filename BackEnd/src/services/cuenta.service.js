@@ -2,7 +2,10 @@ import { sequelize } from "../db.js";
 import { Cuenta } from "../models/Cuenta.js";
 import { Cliente } from "../models/Cliente.js";
 import { Profesional } from "../models/Profesional.js";
-import { deleteProfesionalPorCuenta } from "./profesional.service.js";
+import {
+  deleteProfesionalPorCuenta,
+  sincronizarServiciosProfesional,
+} from "./profesional.service.js";
 import bcrypt from "bcrypt";
 
 export const registrarCliente = async (datos) => {
@@ -49,7 +52,7 @@ export const registrarCliente = async (datos) => {
 };
 
 export const registrarProfesional = async (datos) => {
-  const { nombre, apellido, telefono, email, password } = datos;
+  const { nombre, apellido, telefono, email, password, servicios = [] } = datos;
 
   if (!nombre || !apellido || !telefono || !email || !password) {
     throw new Error("Todos los campos son obligatorios");
@@ -79,6 +82,12 @@ export const registrarProfesional = async (datos) => {
         cuenta_id: cuenta.id,
       },
       { transaction },
+    );
+
+    await sincronizarServiciosProfesional(
+      profesional.id,
+      servicios,
+      transaction,
     );
 
     return {

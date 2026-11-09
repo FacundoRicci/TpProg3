@@ -18,6 +18,7 @@ const profesionalVacio = {
   telefono: "",
   email: "",
   password: "",
+  servicios: [],
 };
 
 const clienteVacio = {
@@ -142,6 +143,7 @@ function Admin() {
       telefono: item.telefono,
       email: item.Cuenta?.email ?? "",
       password: "",
+      servicios: (item.Servicios ?? []).map((servicio) => servicio.id),
     });
   };
 
@@ -182,11 +184,26 @@ function Admin() {
   };
 
   const guardarProfesional = (e) => {
+    if (profesional.servicios.length === 0) {
+      e.preventDefault();
+      setError("Seleccioná al menos un servicio para el profesional.");
+      return;
+    }
+
     const ruta = profesionalId
       ? `/profesionales/${profesionalId}`
       : "/cuentas/registroProfesional";
     const metodo = profesionalId ? "PUT" : "POST";
     guardar(e, ruta, metodo, profesional, limpiarProfesional);
+  };
+
+  const alternarServicio = (id) => {
+    setProfesional((actual) => ({
+      ...actual,
+      servicios: actual.servicios.includes(id)
+        ? actual.servicios.filter((servicioId) => servicioId !== id)
+        : [...actual.servicios, id],
+    }));
   };
 
   const guardarCliente = (e) => {
@@ -298,6 +315,29 @@ function Admin() {
                           }
                         />
                       </Form.Group>
+                      <Form.Group>
+                        <Form.Label>Servicios que realiza</Form.Label>
+                        {servicios.length === 0 ? (
+                          <Form.Text className="d-block text-muted">
+                            Todavía no hay servicios cargados. Creá uno en la sección
+                            Servicios.
+                          </Form.Text>
+                        ) : (
+                          servicios.map((item) => (
+                            <Form.Check
+                              key={item.id}
+                              type="checkbox"
+                              id={`servicio-profesional-${item.id}`}
+                              label={`${item.nombre} ($${item.precio})`}
+                              checked={profesional.servicios.includes(item.id)}
+                              onChange={() => alternarServicio(item.id)}
+                            />
+                          ))
+                        )}
+                        <Form.Text className="d-block text-muted">
+                          Seleccioná al menos un servicio.
+                        </Form.Text>
+                      </Form.Group>
                       <div className="d-flex gap-2">
                         <Button type="submit" variant="dark" disabled={guardando}>
                           {profesionalId ? "Guardar cambios" : "Agregar"}
@@ -315,7 +355,7 @@ function Admin() {
               <Col lg={8}>
                 <Table responsive striped hover>
                   <thead>
-                    <tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Acciones</th></tr>
+                    <tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Servicios</th><th>Acciones</th></tr>
                   </thead>
                   <tbody>
                     {profesionales.map((item) => (
@@ -323,6 +363,20 @@ function Admin() {
                         <td>{item.nombre} {item.apellido}</td>
                         <td>{item.Cuenta?.email}</td>
                         <td>{item.telefono}</td>
+                        <td>
+                          {item.Servicios?.length ? (
+                            item.Servicios.map((servicio) => (
+                              <span
+                                key={servicio.id}
+                                className="badge text-bg-secondary me-1 mb-1"
+                              >
+                                {servicio.nombre}
+                              </span>
+                            ))
+                          ) : (
+                            "—"
+                          )}
+                        </td>
                         <td className="text-nowrap">
                           <Button size="sm" variant="outline-dark" className="me-2" onClick={() => editarProfesional(item)}>Editar</Button>
                           <Button size="sm" variant="outline-danger" onClick={() => borrarProfesional(item)}>Eliminar</Button>
