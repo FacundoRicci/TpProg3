@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import { Alert, Badge, Card, Spinner, Table } from "react-bootstrap";
+import { Alert, Badge, Button, Card, Spinner, Table } from "react-bootstrap";
 import { pedir } from "../auth.js";
 
 function TurnosProfesional({ profesionalId }) {
     const [turnos, setTurnos] = useState([]);
     const [error, setError] = useState("");
+    const [mensaje, setMensaje] = useState("");
     const [cargando, setCargando] = useState(true);
+    const [cancelandoId, setCancelandoId] = useState(null);
+    const [recargar, setRecargar] = useState(0);
+
+    const cargarTurnos = () => setRecargar((valor) => valor + 1);
 
     useEffect(() => {
         if (!profesionalId) return;
@@ -26,7 +31,23 @@ function TurnosProfesional({ profesionalId }) {
         return () => {
             activo = false;
         };
-    }, [profesionalId]);
+    }, [profesionalId, recargar]);
+
+    const cancelar = async (id) => {
+        setError("");
+        setMensaje("");
+        setCancelandoId(id);
+
+        try {
+            await pedir(`/turnos/${id}/cancelar`, { method: "PATCH" });
+            setMensaje("Turno cancelado.");
+            cargarTurnos();
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setCancelandoId(null);
+        }
+    };
 
     return (
         <div className="container py-5">
@@ -41,6 +62,12 @@ function TurnosProfesional({ profesionalId }) {
                 <Alert variant="danger">
                     <i className="bi bi-exclamation-triangle me-2"></i>
                     {error}
+                </Alert>
+            )}
+            {mensaje && (
+                <Alert variant="success" className="py-2">
+                    <i className="bi bi-check-circle me-2"></i>
+                    {mensaje}
                 </Alert>
             )}
 
@@ -68,6 +95,7 @@ function TurnosProfesional({ profesionalId }) {
                                     <th>Teléfono</th>
                                     <th>Servicio</th>
                                     <th>Estado</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,6 +110,18 @@ function TurnosProfesional({ profesionalId }) {
                                             <Badge bg={turno.estado === "PENDIENTE" ? "success" : "secondary"}>
                                                 {turno.estado}
                                             </Badge>
+                                        </td>
+                                        <td className="text-end">
+                                            {turno.estado === "PENDIENTE" && (
+                                                <Button
+                                                    size="sm"
+                                                    variant="outline-danger"
+                                                    disabled={cancelandoId === turno.id}
+                                                    onClick={() => cancelar(turno.id)}
+                                                >
+                                                    {cancelandoId === turno.id ? "Cancelando..." : "Cancelar"}
+                                                </Button>
+                                            )}
                                         </td>
                                     </tr>
                                 ))}

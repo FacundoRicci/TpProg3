@@ -2,6 +2,7 @@ import { sequelize } from "../db.js";
 import { Cuenta } from "../models/Cuenta.js";
 import { Cliente } from "../models/Cliente.js";
 import { Profesional } from "../models/Profesional.js";
+import { deleteProfesionalPorCuenta } from "./profesional.service.js";
 import bcrypt from "bcrypt";
 
 export const registrarCliente = async (datos) => {
@@ -137,19 +138,5 @@ export const loginCuenta = async (datos) => {
 };
 
 export const eliminarProfesional = async (cuentaId) => {
-  const cuenta = await Cuenta.findByPk(cuentaId);
-
-  if (!cuenta) {
-    return null;
-  }
-
-  if (cuenta.rol !== "PROFESIONAL") {
-    const error = new Error("La cuenta no pertenece a un profesional");
-    error.status = 400;
-    throw error;
-  }
-
-  await cuenta.destroy();
-
-  return cuenta;
+  return await deleteProfesionalPorCuenta(cuentaId);
 };

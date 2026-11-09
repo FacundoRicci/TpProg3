@@ -1,5 +1,8 @@
+import { sequelize } from "../db.js";
 import { Servicio } from "../models/Servicio.js";
 import { Profesional } from "../models/Profesional.js";
+import { Turno } from "../models/Turno.js";
+import { ProfesionalServicio } from "../models/ProfesionalServicio.js";
 
 export const getServicios = async () => {
   return await Servicio.findAll();
@@ -39,13 +42,27 @@ export const updateServicio = async (id, datos) => {
 };
 
 export const deleteServicio = async (id) => {
-  const servicio = await Servicio.findByPk(id);
+  return await sequelize.transaction(async (transaction) => {
+    const servicio = await Servicio.findByPk(id, { transaction });
 
-  if (!servicio) {
-    return null;
-  }
+    if (!servicio) {
+      return null;
+    }
 
-  await servicio.destroy();
+    // Se eliminan todos los turnos del servicio, sin importar su estado,
+    // y las relaciones del servicio con los profesionales.
+    await Turno.destroy({
+      where: { servicio_id: id },
+      transaction,
+    });
 
-  return servicio;
+    await ProfesionalServicio.destroy({
+      where: { servicio_id: id },
+      transaction,
+    });
+
+    await servicio.destroy({ transaction });
+
+    return servicio;
+  });
 };

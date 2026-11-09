@@ -117,8 +117,10 @@ function Admin() {
     }
   };
 
-  const eliminar = async (ruta, nombre, cargarFormulario) => {
-    if (!window.confirm(`¿Querés eliminar ${nombre}?`)) {
+  const eliminar = async (ruta, nombre, cargarFormulario, advertencia = "") => {
+    const mensaje = `${advertencia ? `${advertencia}\n\n` : ""}¿Querés eliminar ${nombre}?`;
+
+    if (!window.confirm(mensaje)) {
       return;
     }
 
@@ -210,13 +212,24 @@ function Admin() {
       `/cuentas/profesional/${item.cuenta_id}`,
       `al profesional ${item.nombre} ${item.apellido}`,
       limpiarProfesional,
+      "Solo se eliminará si no tiene turnos pendientes.",
     );
 
   const borrarCliente = (item) =>
-    eliminar(`/clientes/${item.id}`, `al cliente ${item.nombre} ${item.apellido}`, limpiarCliente);
+    eliminar(
+      `/clientes/${item.id}`,
+      `al cliente ${item.nombre} ${item.apellido}`,
+      limpiarCliente,
+      "Solo se eliminará si no tiene turnos pendientes.",
+    );
 
   const borrarServicio = (item) =>
-    eliminar(`/servicios/${item.id}`, `el servicio ${item.nombre}`, limpiarServicio);
+    eliminar(
+      `/servicios/${item.id}`,
+      `el servicio ${item.nombre}`,
+      limpiarServicio,
+      "Se eliminarán también todos los turnos asociados a este servicio.",
+    );
 
   return (
     <Container className="py-5">

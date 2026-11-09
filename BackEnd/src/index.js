@@ -41,6 +41,14 @@ try {
       return next(error);
     }
 
+    // Respaldo por si alguna relación escapó a la eliminación explícita.
+    if (error.name === "SequelizeForeignKeyConstraintError") {
+      return res.status(409).json({
+        mensaje:
+          "No se puede eliminar el registro porque tiene datos asociados.",
+      });
+    }
+
     const status = error.status || 500;
 
     if (status >= 500) {

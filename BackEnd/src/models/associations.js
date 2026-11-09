@@ -18,6 +18,7 @@ Cuenta.hasOne(Cliente, {
 
 Turno.belongsTo(Cliente, {
   foreignKey: "cliente_id",
+  onDelete: "CASCADE",
 });
 
 Turno.belongsTo(Profesional, {
@@ -27,10 +28,12 @@ Turno.belongsTo(Profesional, {
 
 Turno.belongsTo(Servicio, {
   foreignKey: "servicio_id",
+  onDelete: "CASCADE",
 });
 
 Servicio.hasMany(Turno, {
   foreignKey: "servicio_id",
+  onDelete: "CASCADE",
 });
 
 Profesional.hasMany(Turno, {
@@ -40,6 +43,7 @@ Profesional.hasMany(Turno, {
 
 Cliente.hasMany(Turno, {
   foreignKey: "cliente_id",
+  onDelete: "CASCADE",
 });
 
 Profesional.belongsTo(Cuenta, {
@@ -73,6 +77,7 @@ Profesional.hasMany(ProfesionalServicio, {
 
 Servicio.hasMany(ProfesionalServicio, {
   foreignKey: "servicio_id",
+  onDelete: "CASCADE",
 });
 
 DisponibilidadProfesional.belongsTo(Profesional, {
