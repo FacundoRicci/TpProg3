@@ -30,7 +30,7 @@ const turnoBase = () => ({
   hora: "10:00",
 });
 
-// Verifica que crearTurno rechace los datos con el mensaje y el código HTTP esperados
+// Verifica que crearTurno rechace los datos con el mensaje y el código HTTP esperados.
 const debeRechazar = (datos, mensaje, status = 400) =>
   assert.rejects(crearTurno(datos), (error) => {
     assert.equal(error.message, mensaje);
