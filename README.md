@@ -16,6 +16,7 @@ cd BackEnd
 npm install
 npm run seed   # carga los servicios iniciales (opcional)
 npm run dev    # http://localhost:3000
+npm test       # corre las pruebas unitarias
 ```
 
 La base SQLite (`salon_belleza.db`) se crea sola en la primera ejecución y **no se versiona**.
@@ -43,3 +44,9 @@ La URL del BackEnd se puede cambiar con la variable `VITE_API_URL` (por defecto 
 | POST | `/turnos` | Crear turno |
 | GET | `/turnos/cliente/:clienteId` | Turnos de un cliente |
 | PATCH | `/turnos/:id/cancelar` | Cancelar un turno |
+
+## Documentación
+
+- [Principios de Diseño UI aplicados en el FrontEnd](docs/principios-diseno-ui.md)
+- [Casos de prueba funcionales y prueba unitaria](docs/pruebas.md)
+- [Documentación del proyecto (PDF)](docs/documentacion-proyecto.pdf)
